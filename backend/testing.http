@@ -1,0 +1,27 @@
+@url=http://localhost:9001
+
+GET {{url}} 
+
+###
+
+POST {{url}}/login
+Content-Type: application/json
+
+{
+    "email":"test@email1.com",
+    "password":"test"
+}
+
+###
+
+POST {{url}}/createUser
+Content-Type: application/json
+
+{
+    "name":"Jonas",
+    "surname":"Gimmler",
+    "email":"test@email.com",
+    "password":"test"
+}
+
+###
