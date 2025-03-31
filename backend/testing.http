@@ -14,14 +14,14 @@ Content-Type: application/json
 
 ###
 
-POST {{url}}/createUser
+POST {{url}}/createAnUser
 Content-Type: application/json
 
 {
     "name":"Jonas",
     "surname":"Gimmler",
-    "email":"test@email.com",
-    "password":"test"
+    "email":"email@email.com",
+    "password":"12345"
 }
 
 ###

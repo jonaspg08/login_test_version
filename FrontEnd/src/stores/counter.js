@@ -3,28 +3,29 @@ import { defineStore } from 'pinia'
 
 
 export const useCounterStore = defineStore('counter', () => {
-  const localUser = ref({})
+  const currentUser = ref({})
   const anwserFromBackEnd = ref()
-  const user = ref (false)
+  const activeUser = ref (false)
   const createAnUser = ref({})
+  const overlayLogin = ref(false)
 
   function login() {
-    console.log(localUser.value)
+    console.log(currentUser.value)
     fetch("http://localhost:9002/login", {
       method: "POST",
       headers: { "content-Type": "application/json" },
-      body: JSON.stringify(localUser.value)
+      body: JSON.stringify(currentUser.value)
     })
       .then((response) => response.json())
       .then((data) => {
         anwserFromBackEnd.value = data;
-        user.value = data;
+        activeUser.value = data;
       })
   }
 
   function registerUser() {
     console.log(createAnUser.value)
-    fetch("http://localhost:9002/createUser", {
+    fetch("http://localhost:9002/createAnUser", {
       method: "POST",
       headers: { "content-Type": "application/json" },
       body: JSON.stringify(createAnUser.value)
@@ -35,12 +36,14 @@ export const useCounterStore = defineStore('counter', () => {
       })
   }
 
+
   return {
-    localUser,
+    currentUser,
     anwserFromBackEnd,
     createAnUser,
     login,
     registerUser,
-    user
+    activeUser,
+    overlayLogin
   }
 })

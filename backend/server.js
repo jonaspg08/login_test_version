@@ -21,7 +21,7 @@ app.get("", async (req, res) => {
 }
 )
 
-app.post('/createUser', async (req, res) => {
+app.post('/createAnUser', async (req, res) => {
     console.log('post request on create', req.body);
     try {
         let result = await NewUser.create(req.body) //Warum nicht?
