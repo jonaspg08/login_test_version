@@ -58,5 +58,4 @@ app.post('/login', async (req, res) => {
 
 app.listen(process.env.PORT, () => {
     console.log('server läuft', process.env.PORT);
-
 })

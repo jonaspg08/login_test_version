@@ -6,11 +6,11 @@ export const useCounterStore = defineStore('counter', () => {
   const localUser = ref({})
   const anwserFromBackEnd = ref()
   const user = ref (false)
-  const newUser = ref({})
+  const createAnUser = ref({})
 
   function login() {
     console.log(localUser.value)
-    fetch("http://localhost:9001/login", {
+    fetch("http://localhost:9003/login", {
       method: "POST",
       headers: { "content-Type": "application/json" },
       body: JSON.stringify(localUser.value)
@@ -23,11 +23,11 @@ export const useCounterStore = defineStore('counter', () => {
   }
 
   function createUser() {
-    console.log(newUser.value)
-    fetch("http://localhost:9001/createUser", {
+    console.log(createAnUser.value)
+    fetch("http://localhost:9003/createUser", {
       method: "POST",
       headers: { "content-Type": "application/json" },
-      body: JSON.stringify(newUser.value)
+      body: JSON.stringify(createAnUser.value)
     })
       .then((response) => response.json())
       .then((data) => {
@@ -38,7 +38,7 @@ export const useCounterStore = defineStore('counter', () => {
   return {
     localUser,
     anwserFromBackEnd,
-    newUser,
+    createAnUser,
     login,
     createUser,
     user

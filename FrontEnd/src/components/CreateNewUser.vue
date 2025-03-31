@@ -1,7 +1,9 @@
 <script setup>
 import { useCounterStore } from '../stores/counter';
+import { ref } from 'vue'
 
 const useStore = useCounterStore();
+const overlayLogin = ref(false);
 
 </script>
 
