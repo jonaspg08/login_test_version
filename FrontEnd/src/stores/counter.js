@@ -10,7 +10,7 @@ export const useCounterStore = defineStore('counter', () => {
 
   function login() {
     console.log(localUser.value)
-    fetch("http://localhost:9003/login", {
+    fetch("http://localhost:9002/login", {
       method: "POST",
       headers: { "content-Type": "application/json" },
       body: JSON.stringify(localUser.value)
@@ -22,9 +22,9 @@ export const useCounterStore = defineStore('counter', () => {
       })
   }
 
-  function createUser() {
+  function registerUser() {
     console.log(createAnUser.value)
-    fetch("http://localhost:9003/createUser", {
+    fetch("http://localhost:9002/createUser", {
       method: "POST",
       headers: { "content-Type": "application/json" },
       body: JSON.stringify(createAnUser.value)
@@ -40,7 +40,7 @@ export const useCounterStore = defineStore('counter', () => {
     anwserFromBackEnd,
     createAnUser,
     login,
-    createUser,
+    registerUser,
     user
   }
 })
