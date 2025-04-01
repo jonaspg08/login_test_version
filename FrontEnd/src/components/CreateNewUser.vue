@@ -8,8 +8,10 @@ const password2 = ref();
 </script>
 
 <template>
-<div :class='useStore.overlayLogin ? "overlayActive" : "overlayPause"'>
+<div :class='useStore.overlayLogin ? "overlayActive" : "overlayPause"' class="newUser">
         <h3>Create Account</h3>
+        <p>Bitte gebe Dein Name, Nachname, Deine E-Mail Adresse sowie ein Passwort ein.</p>
+        <form>
         <label>
           Vorname:
         </label>
@@ -33,5 +35,6 @@ const password2 = ref();
         <button v-if="password2 === useStore.createAnUser.password" @click.prevent="useStore.registerUser"
           @click="useStore.overlayLogin = false">Create New Account
         </button>
+    </form>
       </div>
 </template>

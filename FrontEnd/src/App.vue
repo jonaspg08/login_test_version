@@ -13,13 +13,15 @@ const overlayLogin = ref(false);
 <template>
       <ValidUser v-if="!useStore.activeUser._id" />
       <Game v-if="useStore.activeUser._id" />
+
+      <footer>
       <hr>
       <div class="footer">
         <span>Impressum</span>
         <span>Kontakt & Hilfe</span>
-        <span>GitHub - more projects</span>
+        <span><a href="https://github.com/jonaspg08">GitHub - more projects</a></span>
       </div>
-
+    </footer>
 
     <!-- <nav>
         <RouterLink to="/">Home</RouterLink>
