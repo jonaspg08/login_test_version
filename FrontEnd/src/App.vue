@@ -11,10 +11,9 @@ const overlayLogin = ref(false);
 </script>
 
 <template>
-      <ValidUser v-if="!useStore.activeUser._id" />
-      <Game v-if="useStore.activeUser._id" />
-
-      <footer>
+  <ValidUser v-if="!useStore.activeUser._id" />
+  <Game v-if="useStore.activeUser._id" />
+    <footer>
       <hr>
       <div class="footer">
         <span>Impressum</span>
@@ -23,7 +22,7 @@ const overlayLogin = ref(false);
       </div>
     </footer>
 
-    <!-- <nav>
+  <!-- <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
       </nav> -->

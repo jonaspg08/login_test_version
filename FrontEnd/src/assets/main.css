@@ -1,7 +1,7 @@
 body {
   margin: 1rem;
   font-family: Arial, Helvetica, sans-serif;
-  background-color: #eddea4;
+  background-color: #f3f3f3;
 }
 
 #app {
@@ -11,6 +11,12 @@ body {
   justify-content: center;
 }
 
+footer {
+  position: relative;
+  min-width: 100vh;
+  min-height: none;
+}
+
 input {
   display: flex;
   width: 200px;
@@ -18,11 +24,13 @@ input {
 }
 
 button {
-  margin-top: 7px;
   border-radius: 10px;
   background-color: #87f1ff;
   justify-content: center;
-
+  margin-top: 7px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 button:hover {
@@ -51,10 +59,12 @@ label {
 
 .overlayActive {
   position: absolute;
-  background-color: rgba(255, 234, 0, 0);
+  background-color: rgb(215, 215, 215);
   backdrop-filter: blur(10px);
-  height: 100vh;
-  width: 100vw;
+  height: 65%;
+  width: 50%;
+  margin-top: 8rem;
+  border-radius: 25px;
   top: 0px;
   transition: all 1s;
 }
