@@ -4,6 +4,23 @@ GET {{url}}
 
 ###
 
+GET {{url}}/game/whosTurn
+
+###
+
+GET {{url}}/game/activePlayer
+
+###
+
+POST {{url}}/game/activePlayer
+Content-Type: application/json
+
+{
+    "name":"Jonas"
+}
+
+###
+
 POST {{url}}/login
 Content-Type: application/json
 
@@ -25,3 +42,4 @@ Content-Type: application/json
 }
 
 ###
+

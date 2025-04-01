@@ -9,7 +9,7 @@ const password2 = ref();
 
 <template>
   
-<div :class='useStore.overlayLogin ? "overlayActive" : "overlayPause"' class="newUser">
+<div :class='useStore.overlayLogin ? "overlayLogin" : "overlayCloseLogin"' class="newUser">
         <h3>Create Account</h3>
         <p>Bitte gebe Dein Name, Nachname, Deine E-Mail Adresse sowie ein Passwort ein.</p>
         <form>

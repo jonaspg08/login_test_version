@@ -5,7 +5,7 @@ import { defineStore } from 'pinia'
 export const useCounterStore = defineStore('counter', () => {
   const currentUser = ref({})
   const anwserFromBackEnd = ref()
-  const activeUser = ref (false)
+  const activeUser = ref(false)
   const createAnUser = ref({})
   const overlayLogin = ref(false)
 
@@ -19,8 +19,19 @@ export const useCounterStore = defineStore('counter', () => {
       .then((response) => response.json())
       .then((data) => {
         anwserFromBackEnd.value = data;
-        activeUser.value = data;
-      })
+        if (data && data.email) {
+          activeUser.value = data;
+          localStorage.setItem('activeUser', JSON.stringify(data));
+        }
+      }
+      )
+  }
+
+  function checkLoginStatus() {
+    const storedUser = localStorage.getItem('activeUser');
+    if (storedUser) {
+      activeUser.value = JSON.parse(storedUser);
+    }
   }
 
   function registerUser() {
@@ -44,6 +55,7 @@ export const useCounterStore = defineStore('counter', () => {
     login,
     registerUser,
     activeUser,
-    overlayLogin
+    overlayLogin,
+    checkLoginStatus
   }
 })

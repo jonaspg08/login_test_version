@@ -2,6 +2,7 @@ const express = require("express")
 const cors = require("cors")
 const NewUser = require("./userSchema.js")
 
+const gameRouter = require("./gamerouter/gameAPI.js")
 const mongooseConnect = require("./mongooseConnect.js")
 
 mongooseConnect.connectMongoose()
@@ -9,6 +10,8 @@ mongooseConnect.connectMongoose()
 const app = express()
 app.use(express.json())
 app.use(cors());
+
+app.use("/game", gameRouter);
 
 app.get("", async (req, res) => {
     console.log('hello from backend')
