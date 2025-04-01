@@ -8,6 +8,6 @@ const useStore = useCounterStore();
 
 <template>
 <h3> Here is your Game. Have fun!</h3>
-<button @click="">Go back</button>
+<button @click.prevent="useStore.logOutUser">Logout</button>
 <TicTacToe />
 </template>

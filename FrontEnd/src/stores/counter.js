@@ -47,6 +47,13 @@ export const useCounterStore = defineStore('counter', () => {
       })
   }
 
+  function logOutUser() {
+    activeUser.value = false
+    localStorage.clear()
+  }
+
+  checkLoginStatus();
+
 
   return {
     currentUser,
@@ -56,6 +63,7 @@ export const useCounterStore = defineStore('counter', () => {
     registerUser,
     activeUser,
     overlayLogin,
-    checkLoginStatus
+    checkLoginStatus,
+    logOutUser
   }
 })

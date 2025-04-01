@@ -3,7 +3,7 @@ const gameRouter = express.Router()
 
 const currentPlayer = []
 let whosTurn = ''
-const currentBoard = [  
+let currentBoard = [  
 ['', '', ''],
 ['', '', ''],
 ['', '', '']
@@ -49,9 +49,19 @@ gameRouter.get("/whosTurn", async (req, res) => {
     }
 })
 
-gameRouter.post("/board", async (req, res) =>{
+gameRouter.post("/board", (req, res) =>{
     try {
+        // req.body.currentBoard.forEach(row => {
+        // row.forEach(field => {
+        //         if (field === true){
+        //             currentPlayer[0]
+        //         }   else if (field === false) {
+        //             field = currentPlayer[1]
+        //         }
+        //     });
+        // });
         currentBoard = req.body.currentBoard
+        console.log('currentBoard POST', currentBoard);
         res.send({"Ok":true})
     } catch (error) {
         console.log(error);
@@ -59,7 +69,7 @@ gameRouter.post("/board", async (req, res) =>{
     }
 })
 
-gameRouter.get("/board", async (res, req) =>{
+gameRouter.get("/board", (req, res) =>{
     try {
         console.log('currentBoard', currentBoard);
         res.send({"currentBoard": currentBoard})

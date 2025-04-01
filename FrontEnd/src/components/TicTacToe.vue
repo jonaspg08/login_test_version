@@ -1,21 +1,19 @@
 <script setup>
 import { ref } from 'vue'
 import { useTTTStore } from '@/stores/ticTacToeStore';
+import { useCounterStore } from '@/stores/counter';
 
+const counterStore = useCounterStore();
 const ticTacToeStore = useTTTStore();
 
-const gameBoard = ref([
-  ['', '', ''],
-  ['', '', ''],
-  ['', '', '']
-]);
 
-function clickOnBoard(row, col, player) {
-  if (gameBoard.value[row][col] === '' && !gameOver.value) {
-    gameBoard.value[row][col] = activePlayer.value;
+function clickOnBoard(row, col) {
+  if (ticTacToeStore.currentBoard[row][col] === '' && !gameOver.value) {
+    ticTacToeStore.currentBoard[row][col] = counterStore.activeUser.name;
     // ticTacToeStore.value;
-  }
+  } 
   if (gameEnd()) return;
+  ticTacToeStore.updateBoard();
   console.log('winCheck', winCheck())
   activePlayer.value = !activePlayer.value;
 }
@@ -23,15 +21,15 @@ const activePlayer = ref(false);
 const gameOver = ref(false);
 
 function winCheck() {
-  for (let i = 0; i < gameBoard.value.length; i++) {
-    for (let m = 0; m < gameBoard.value[i].length; m++) {
-      if (gameBoard.value[i][0] === gameBoard.value[i][1] && gameBoard.value[i][1] === gameBoard.value[i][2] && gameBoard.value[i][1] !== '') {
+  for (let i = 0; i < ticTacToeStore.currentBoard.length; i++) {
+    for (let m = 0; m < ticTacToeStore.currentBoard[i].length; m++) {
+      if (ticTacToeStore.currentBoard[i][0] === ticTacToeStore.currentBoard[i][1] && ticTacToeStore.currentBoard[i][1] === ticTacToeStore.currentBoard[i][2] && ticTacToeStore.currentBoard[i][1] !== '') {
         return true;
-      } else if (gameBoard.value[0][m] === gameBoard.value[1][m] && gameBoard.value[1][m] === gameBoard.value[2][m] && gameBoard.value[1][m] !== '') {
+      } else if (ticTacToeStore.currentBoard[0][m] === ticTacToeStore.currentBoard[1][m] && ticTacToeStore.currentBoard[1][m] === ticTacToeStore.currentBoard[2][m] && ticTacToeStore.currentBoard[1][m] !== '') {
         return true;
-      } else if (gameBoard.value[0][0] === gameBoard.value[1][1] && gameBoard.value[1][1] === gameBoard.value[2][2] && gameBoard.value[1][1] !== '') {
+      } else if (ticTacToeStore.currentBoard[0][0] === ticTacToeStore.currentBoard[1][1] && ticTacToeStore.currentBoard[1][1] === ticTacToeStore.currentBoard[2][2] && ticTacToeStore.currentBoard[1][1] !== '') {
         return true;
-      } else if (gameBoard.value[0][2] === gameBoard.value[1][1] && gameBoard.value[1][1] === gameBoard.value[2][0] && gameBoard.value[1][1] !== '') {
+      } else if (ticTacToeStore.currentBoard[0][2] === ticTacToeStore.currentBoard[1][1] && ticTacToeStore.currentBoard[1][1] === ticTacToeStore.currentBoard[2][0] && ticTacToeStore.currentBoard[1][1] !== '') {
         return true;
       }
     }
@@ -39,7 +37,7 @@ function winCheck() {
 }
 
 function isBoardFull() {
-  return gameBoard.value.every(row => row.every(cell => cell !== ''))
+  return ticTacToeStore.currentBoard.every(row => row.every(cell => cell !== ''))
 }
 
 function gameEnd() {
@@ -55,7 +53,7 @@ function gameEnd() {
 
 function resetGame() {
   gameOver.value = false;
-  gameBoard.value = [
+  ticTacToeStore.currentBoard = [
     ['', '', ''],
     ['', '', ''],
     ['', '', '']
@@ -69,19 +67,20 @@ function resetGame() {
     <h2>{{ ticTacToeStore.count }}</h2>
   </div>
   <main>
-    <div v-for="(row, rowIndex) in gameBoard">
+    <div v-for="(row, rowIndex) in ticTacToeStore.currentBoard">
       <div v-for="(field, fieldIndex) in row">
-        <button :class="field.toString()" @click="clickOnBoard(rowIndex, fieldIndex, activePlayer)">
-          <svg v-if="field === false" width="12rem" height="12rem" viewBox="0 0 100 100">
+        <button :class="field.toString()" @click="clickOnBoard(rowIndex, fieldIndex)">
+          <svg v-if="field === counterStore.currentUser.name" width="12rem" height="12rem" viewBox="0 0 100 100">
             <circle cx="50" cy="50" r="40" stroke="red" stroke-width="10" fill="none" />
           </svg>
-          <svg v-if="field === true" width="12rem" height="12rem" viewBox="0 0 100 100">
+          <svg v-if="field !== '' && field !== counterStore.currentUser.name" width="12rem" height="12rem" viewBox="0 0 100 100">
             <line x1="10" y1="10" x2="90" y2="90" stroke="green" stroke-width="10" />
             <line x1="90" y1="10" x2="10" y2="90" stroke="green" stroke-width="10" />
           </svg>
         </button>
       </div>
     </div>
+    <pre>{{ ticTacToeStore.currentBoard }}</pre>
   </main>
   <button class="reset" @click="resetGame()">Reset Game</button>
   <div :class='gameOver ? "overlayActive" : "overlayPause"'>
