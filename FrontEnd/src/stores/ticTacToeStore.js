@@ -6,6 +6,7 @@ import { defineStore } from 'pinia'
 
 export const useTTTStore = defineStore('ttt', () => {
   const count = ref('Schokolade')
+  const currentPlayer = ref({})
 
   const currentBoard = ref([  
     ['', '', ''],
@@ -31,9 +32,22 @@ export const useTTTStore = defineStore('ttt', () => {
     
   }
 
+  function getCurrentPlayer() {
+    fetch("http://localhost:9002/game/whosTurn")
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        currentPlayer.value = data.whosTurn
+      })
+       
+    }
+
+    function d(){
+      
+    }
 
   setInterval(()=>{
-    loadBoard();
+    loadBoard(); getCurrentPlayer();
   },1000);
   
   return { count, updateBoard, currentBoard}

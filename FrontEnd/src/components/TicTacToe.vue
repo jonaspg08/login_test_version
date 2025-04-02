@@ -6,16 +6,21 @@ import { useCounterStore } from '@/stores/counter';
 const counterStore = useCounterStore();
 const ticTacToeStore = useTTTStore();
 
+// const currentPlayer = [counterStore.currentPlayer0.name, counterStore.currentPlayer1.name];
+// const currentPlayerIndex = ref(0);
 
 function clickOnBoard(row, col) {
   if (ticTacToeStore.currentBoard[row][col] === '' && !gameOver.value) {
     ticTacToeStore.currentBoard[row][col] = counterStore.activeUser.name;
     // ticTacToeStore.value;
   } 
+  // ticTacToeStore.currentBoard[row][col] = currentPlayer[currentPlayerIndex.value];
+    
   if (gameEnd()) return;
   ticTacToeStore.updateBoard();
   console.log('winCheck', winCheck())
   activePlayer.value = !activePlayer.value;
+  // currentPlayerIndex.value = currentPlayerIndex.value === 0 ? 1 : 0;
 }
 const activePlayer = ref(false);
 const gameOver = ref(false);

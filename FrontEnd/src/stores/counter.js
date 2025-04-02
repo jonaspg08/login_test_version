@@ -9,6 +9,7 @@ export const useCounterStore = defineStore('counter', () => {
   const createAnUser = ref({})
   const overlayLogin = ref(false)
 
+
   function login() {
     console.log(currentUser.value)
     fetch("http://localhost:9002/login", {
@@ -52,9 +53,11 @@ export const useCounterStore = defineStore('counter', () => {
     localStorage.clear()
   }
 
+
+
   checkLoginStatus();
-
-
+  
+  
   return {
     currentUser,
     anwserFromBackEnd,

@@ -2,7 +2,7 @@ const express = require("express")
 const gameRouter = express.Router()
 
 const currentPlayer = []
-let whosTurn = ''
+let whosTurn = 'Jonas'
 let currentBoard = [  
 ['', '', ''],
 ['', '', ''],
