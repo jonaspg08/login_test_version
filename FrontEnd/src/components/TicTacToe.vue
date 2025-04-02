@@ -5,22 +5,33 @@ import { useCounterStore } from '@/stores/counter';
 
 const counterStore = useCounterStore();
 const ticTacToeStore = useTTTStore();
-
-// const currentPlayer = [counterStore.currentPlayer0.name, counterStore.currentPlayer1.name];
-// const currentPlayerIndex = ref(0);
+const changePlayer = ref(false);
+// const response = await fetch("http://localhost:9002/game/whosTurn")
 
 function clickOnBoard(row, col) {
   if (ticTacToeStore.currentBoard[row][col] === '' && !gameOver.value) {
+    // const data = await response.json();
+    // if (data.whosTurn !== counterStore.currentUser.name) {
+    //   console.log(data.whosTurn);
+    //   console.log("Wait for your turn");
+    //   return;
+    // }
+    console.log('click on board', counterStore.activeUser);
     ticTacToeStore.currentBoard[row][col] = counterStore.activeUser.name;
-    // ticTacToeStore.value;
-  } 
-  // ticTacToeStore.currentBoard[row][col] = currentPlayer[currentPlayerIndex.value];
-    
+    ticTacToeStore.updateBoard();
+
+    // await fetch("http://localhost:9002/game/board", {
+    //   method: "POST",
+    //   headers: { "Content-Type": "applications/json" },
+    //   body: JSON.stringify({ currentBoard: ticTacToeStore.currentBoard })
+    // })
+
+  }
+
   if (gameEnd()) return;
-  ticTacToeStore.updateBoard();
+  // ticTacToeStore.updateBoard();
   console.log('winCheck', winCheck())
-  activePlayer.value = !activePlayer.value;
-  // currentPlayerIndex.value = currentPlayerIndex.value === 0 ? 1 : 0;
+  activePlayer.value = !activePlayer.value
 }
 const activePlayer = ref(false);
 const gameOver = ref(false);
@@ -72,13 +83,20 @@ function resetGame() {
     <h2>{{ ticTacToeStore.count }}</h2>
   </div>
   <main>
+    <h1>whosTurn{{ ticTacToeStore.currentPlayer === counterStore.activeUser.name }}</h1>
+    <div class="blockGamePlay" v-if="ticTacToeStore.currentPlayer !== counterStore.activeUser.name"> 
+      <div>
+        Wait for the other player to make his move
+      </div>
+    </div>
     <div v-for="(row, rowIndex) in ticTacToeStore.currentBoard">
       <div v-for="(field, fieldIndex) in row">
-        <button :class="field.toString()" @click="clickOnBoard(rowIndex, fieldIndex)">
+        <button :class="field" @click="clickOnBoard(rowIndex, fieldIndex)">
           <svg v-if="field === counterStore.currentUser.name" width="12rem" height="12rem" viewBox="0 0 100 100">
             <circle cx="50" cy="50" r="40" stroke="red" stroke-width="10" fill="none" />
           </svg>
-          <svg v-if="field !== '' && field !== counterStore.currentUser.name" width="12rem" height="12rem" viewBox="0 0 100 100">
+          <svg v-if="field !== '' && field !== counterStore.currentUser.name" width="12rem" height="12rem"
+            viewBox="0 0 100 100">
             <line x1="10" y1="10" x2="90" y2="90" stroke="green" stroke-width="10" />
             <line x1="90" y1="10" x2="10" y2="90" stroke="green" stroke-width="10" />
           </svg>
@@ -119,6 +137,23 @@ button {
   background-color: #d90368;
   color: #000000;
   box-shadow: 0 0 10px #d90368;
+}
+
+.blockGamePlay {
+  position: absolute;
+  backdrop-filter: blur(20px);
+  background-color: rgba(255, 0, 0, 0.213);
+  height: 100%;
+  width: 100%;
+  
+}
+
+.blockGamePlay > div{
+  background-color: red;
+  font-size: xx-large;
+  width: 50%;
+  height: 50%;
+  margin:auto;
 }
 
 main {

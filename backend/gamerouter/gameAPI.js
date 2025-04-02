@@ -1,8 +1,8 @@
 const express = require("express")
 const gameRouter = express.Router()
 
-const currentPlayer = []
-let whosTurn = 'Jonas'
+const currentPlayers = [] 
+let whosTurn = ''
 let currentBoard = [  
 ['', '', ''],
 ['', '', ''],
@@ -13,14 +13,16 @@ let currentBoard = [
 gameRouter.post("/activePlayer", async (req, res) => {
     console.log('activePlayer')
     try {
-        if (currentPlayer[0]) {
-            currentPlayer[1] = req.body.name
-            whosTurn = currentPlayer[0]
+        if (currentPlayers[0]) {
+            currentPlayers[1] = req.body.name
+            console.log('POST auf currentPlayers', currentPlayers);
+            
+            whosTurn = currentPlayers[0]
         } else {
-            currentPlayer[0] = req.body.name
+            currentPlayers[0] = req.body.name
         }
-        console.log(currentPlayer);
-        res.send(currentPlayer)
+        console.log('POST auf activePlayer', currentPlayers);
+        res.send(currentPlayers)
 
     } catch (error) {
         console.log(error);
@@ -29,10 +31,10 @@ gameRouter.post("/activePlayer", async (req, res) => {
 })
 
 gameRouter.get("/activePlayer", async (req, res) => {
-    console.log('activePlayer');
-    console.log(currentPlayer);
+    // console.log('activePlayer');
+    console.log(currentPlayers);
     try {
-        res.send(currentPlayer)
+        res.send(currentPlayers)
     }
     catch (error) {
         res.status(500).send(error);
@@ -41,8 +43,8 @@ gameRouter.get("/activePlayer", async (req, res) => {
 
 gameRouter.get("/whosTurn", async (req, res) => {
     try {
-        res.send({"whosTurn" :whosTurn})
-        console.log('whosTurn', whosTurn)
+        res.send({"whosTurn" : whosTurn})
+        // console.log('whosTurn', whosTurn)
     } catch (error) {
         console.log(error);
         res.status(500).send(error);
@@ -61,7 +63,13 @@ gameRouter.post("/board", (req, res) =>{
         //     });
         // });
         currentBoard = req.body.currentBoard
-        console.log('currentBoard POST', currentBoard);
+        // console.log('POST board req.body', req.body);
+        // console.log('currentBoard POST', currentBoard);
+        // console.log('POST auf activePlayer, whosTurn, currentPlayer', whosTurn, currentPlayers);
+        // console.log('POST board / currentPlayer filter',currentPlayers.find((player)=> player !== whosTurn))
+        whosTurn = currentPlayers.find((player)=>player !== whosTurn);
+        console.log("Post board whosTurn", whosTurn);
+        
         res.send({"Ok":true})
     } catch (error) {
         console.log(error);
@@ -71,7 +79,7 @@ gameRouter.post("/board", (req, res) =>{
 
 gameRouter.get("/board", (req, res) =>{
     try {
-        console.log('currentBoard', currentBoard);
+        // console.log('currentBoard', currentBoard);
         res.send({"currentBoard": currentBoard})
     } catch (error) {
         console.log(error);

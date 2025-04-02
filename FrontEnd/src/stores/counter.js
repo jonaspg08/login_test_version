@@ -24,9 +24,19 @@ export const useCounterStore = defineStore('counter', () => {
           activeUser.value = data;
           localStorage.setItem('activeUser', JSON.stringify(data));
         }
+        
+        postLocalUser(data);
       }
-      )
+      ) 
   }
+
+function postLocalUser (data){
+  fetch("http://localhost:9002/game/activePlayer", {
+    method: "POST",
+    headers: { "content-Type": "application/json" },
+    body: JSON.stringify(data)
+  })
+}
 
   function checkLoginStatus() {
     const storedUser = localStorage.getItem('activeUser');

@@ -3,10 +3,15 @@ import { defineStore } from 'pinia'
 
 
 
+// const currentPlayer = [currentPlayer0, currentPlayer1];
+// const currentPlayerIndex = ref(0);
+//   currentBoard[row][col] = currentPlayer[currentPlayerIndex.value];
+//   currentPlayerIndex.value = currentPlayerIndex.value === 0 ? 1 : 0;
+
 
 export const useTTTStore = defineStore('ttt', () => {
   const count = ref('Schokolade')
-  const currentPlayer = ref({})
+  const currentPlayers = ref({})
 
   const currentBoard = ref([  
     ['', '', ''],
@@ -37,18 +42,19 @@ export const useTTTStore = defineStore('ttt', () => {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        currentPlayer.value = data.whosTurn
+        currentPlayers.value = data.whosTurn
       })
        
     }
 
     function d(){
+      console.log(currentPlayers.value);
       
     }
 
   setInterval(()=>{
-    loadBoard(); getCurrentPlayer();
+    loadBoard(); getCurrentPlayer(); d();
   },1000);
   
-  return { count, updateBoard, currentBoard}
+  return { count, updateBoard, currentBoard, currentPlayer: currentPlayers}
 })
