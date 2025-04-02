@@ -3,27 +3,19 @@ import { ref } from 'vue'
 import { useTTTStore } from '@/stores/ticTacToeStore';
 import { useCounterStore } from '@/stores/counter';
 
-const counterStore = useCounterStore();
-const ticTacToeStore = useTTTStore();
+const counterStore = useCounterStore(); // import
+const ticTacToeStore = useTTTStore(); // import
+const activePlayer = ref(false); // true oder false
 
-// const currentPlayer = [counterStore.currentPlayer0.name, counterStore.currentPlayer1.name];
-// const currentPlayerIndex = ref(0);
-
-function clickOnBoard(row, col) {
-  if (ticTacToeStore.currentBoard[row][col] === '' && !gameOver.value) {
-    ticTacToeStore.currentBoard[row][col] = counterStore.activeUser.name;
-    // ticTacToeStore.value;
-  } 
-  // ticTacToeStore.currentBoard[row][col] = currentPlayer[currentPlayerIndex.value];
-    
+function clickOnBoard(row, col) { 
+  if (ticTacToeStore.currentBoard[row][col] === '' && !ticTacToeStore.gameOver) {
+    ticTacToeStore.currentBoard[row][col] = counterStore.user.name;
+    ticTacToeStore.updateBoard();
+  }
   if (gameEnd()) return;
-  ticTacToeStore.updateBoard();
-  console.log('winCheck', winCheck())
-  activePlayer.value = !activePlayer.value;
-  // currentPlayerIndex.value = currentPlayerIndex.value === 0 ? 1 : 0;
+  activePlayer.value = !activePlayer.value
 }
-const activePlayer = ref(false);
-const gameOver = ref(false);
+
 
 function winCheck() {
   for (let i = 0; i < ticTacToeStore.currentBoard.length; i++) {
@@ -47,52 +39,49 @@ function isBoardFull() {
 
 function gameEnd() {
   if (winCheck()) {
-    gameOver.value = true;
+    ticTacToeStore.gameOver = true;
     return true;
   } else if (isBoardFull()) {
-    gameOver.value = true;
+    ticTacToeStore.gameOver = true;
     return true;
   }
   return false;
-}
-
-function resetGame() {
-  gameOver.value = false;
-  ticTacToeStore.currentBoard = [
-    ['', '', ''],
-    ['', '', ''],
-    ['', '', '']
-  ];
 }
 </script>
 
 <template>
   <div class="title">
     <p>TickTackToe</p>
-    <h2>{{ ticTacToeStore.count }}</h2>
   </div>
   <main>
+    <div class="blockGamePlay"
+      v-if="ticTacToeStore.currentPlayer !== counterStore.user.name && !ticTacToeStore.gameOver">
+      <div>
+        Wait for the other player to make his move
+      </div>
+    </div>
     <div v-for="(row, rowIndex) in ticTacToeStore.currentBoard">
       <div v-for="(field, fieldIndex) in row">
-        <button :class="field.toString()" @click="clickOnBoard(rowIndex, fieldIndex)">
-          <svg v-if="field === counterStore.currentUser.name" width="12rem" height="12rem" viewBox="0 0 100 100">
+        <button :class="field" @click="clickOnBoard(rowIndex, fieldIndex)">
+          <svg v-if="field === counterStore.user.name" width="12rem" height="12rem" viewBox="0 0 100 100">
             <circle cx="50" cy="50" r="40" stroke="red" stroke-width="10" fill="none" />
           </svg>
-          <svg v-if="field !== '' && field !== counterStore.currentUser.name" width="12rem" height="12rem" viewBox="0 0 100 100">
+          <svg v-if="field !== '' && field !== counterStore.user.name" width="12rem" height="12rem"
+            viewBox="0 0 100 100">
             <line x1="10" y1="10" x2="90" y2="90" stroke="green" stroke-width="10" />
             <line x1="90" y1="10" x2="10" y2="90" stroke="green" stroke-width="10" />
           </svg>
         </button>
       </div>
     </div>
-    <pre>{{ ticTacToeStore.currentBoard }}</pre>
   </main>
-  <button class="reset" @click="resetGame()">Reset Game</button>
-  <div :class='gameOver ? "overlayActive" : "overlayPause"'>
+  <button class="reset" @click="ticTacToeStore.resetGame()">New Game</button>
+  <div :class='ticTacToeStore.gameOver ? "overlayActive" : "overlayPause"'>
     <h1>Congrats. Reset the game by pushing the button!</h1>
-    <button class="reset" @click="resetGame()">Reset Game</button>
+    <button class="reset" @click="ticTacToeStore.resetGame()">New Game</button>
   </div>
 </template>
+
 <style scoped>
 button {
   width: 14rem;
@@ -121,6 +110,23 @@ button {
   box-shadow: 0 0 10px #d90368;
 }
 
+.blockGamePlay {
+  position: absolute;
+  backdrop-filter: blur(20px);
+  background-color: rgba(255, 0, 0, 0.213);
+  height: 100%;
+  width: 100%;
+
+}
+
+.blockGamePlay>div {
+  background-color: red;
+  font-size: xx-large;
+  width: 50%;
+  height: 50%;
+  margin: auto;
+}
+
 main {
   display: flex;
 }
@@ -136,7 +142,7 @@ main {
 .overlayActive {
   position: absolute;
   background-color: rgba(255, 234, 0, 0);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(5px);
   height: 100vh;
   width: 100vw;
   top: 0px;

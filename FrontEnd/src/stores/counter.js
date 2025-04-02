@@ -1,70 +1,74 @@
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { defineStore } from 'pinia'
 
 
 export const useCounterStore = defineStore('counter', () => {
-  const currentUser = ref({})
-  const anwserFromBackEnd = ref()
-  const activeUser = ref(false)
-  const createAnUser = ref({})
-  const overlayLogin = ref(false)
+  const userFormData = ref({}) // {email:"", password:""}
+  const loginResponse = ref() // { 'message': 'User succesfully created!' } oder {...user}
+  const user = ref(false) // false oder {_id:"", name:"", surname:"",email:"", password:""} => Passwort muss entfernt werden!
+  const userFormDataCreate = ref({}) // {name:"", surname:"",email:"", password:""}
+  const overlayLogin = ref(false) // true oder false
 
 
   function login() {
-    console.log(currentUser.value)
     fetch("http://localhost:9002/login", {
       method: "POST",
       headers: { "content-Type": "application/json" },
-      body: JSON.stringify(currentUser.value)
+      body: JSON.stringify(userFormData.value)
     })
       .then((response) => response.json())
       .then((data) => {
-        anwserFromBackEnd.value = data;
+        loginResponse.value = data;
         if (data && data.email) {
-          activeUser.value = data;
-          localStorage.setItem('activeUser', JSON.stringify(data));
+          user.value = data;
+          localStorage.setItem('user', JSON.stringify(data));
         }
+        postLocalUser(data);
       }
       )
   }
 
-  function checkLoginStatus() {
-    const storedUser = localStorage.getItem('activeUser');
-    if (storedUser) {
-      activeUser.value = JSON.parse(storedUser);
-    }
+  function postLocalUser(data) {
+    fetch("http://localhost:9002/game/activePlayer", {
+      method: "POST",
+      headers: { "content-Type": "application/json" },
+      body: JSON.stringify(data)
+    })
   }
 
   function registerUser() {
-    console.log(createAnUser.value)
-    fetch("http://localhost:9002/createAnUser", {
+    fetch("http://localhost:9002/userFormDataCreate", {
       method: "POST",
       headers: { "content-Type": "application/json" },
-      body: JSON.stringify(createAnUser.value)
+      body: JSON.stringify(userFormDataCreate.value)
     })
       .then((response) => response.json())
       .then((data) => {
-        anwserFromBackEnd.value = data;
+        loginResponse.value = data;
       })
   }
 
+  function checkLoginStatus() {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      user.value = JSON.parse(storedUser);
+    }
+  }
+
   function logOutUser() {
-    activeUser.value = false
+    user.value = false
     localStorage.clear()
   }
 
-
-
   checkLoginStatus();
-  
-  
+
   return {
-    currentUser,
-    anwserFromBackEnd,
-    createAnUser,
+    userFormData: userFormData,
+    anwserFromBackEnd: loginResponse,
+    userFormDataCreate,
     login,
     registerUser,
-    activeUser,
+    user: user,
     overlayLogin,
     checkLoginStatus,
     logOutUser
