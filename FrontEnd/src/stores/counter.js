@@ -12,7 +12,7 @@ export const useCounterStore = defineStore('counter', () => {
 
 
   function login() {
-    fetch(`${import.meta.env.VITE_API_URL}/login`, {
+    fetch(`${apiUrl}/login`, {
       method: "POST",
       headers: { "content-Type": "application/json" },
       body: JSON.stringify(userFormData.value)
@@ -30,7 +30,7 @@ export const useCounterStore = defineStore('counter', () => {
   }
 
   function postLocalUser(data) {
-    fetch(`${import.meta.env.VITE_API_URL}/game/activePlayer`, {
+    fetch(`${apiUrl}/game/activePlayer`, {
       method: "POST",
       headers: { "content-Type": "application/json" },
       body: JSON.stringify(data)
@@ -38,7 +38,7 @@ export const useCounterStore = defineStore('counter', () => {
   }
 
   function registerUser() {
-    fetch(`${import.meta.env.VITE_API_URL}/userFormDataCreate`, {
+    fetch(`${apiUrl}/userFormDataCreate`, {
       method: "POST",
       headers: { "content-Type": "application/json" },
       body: JSON.stringify(userFormDataCreate.value)
