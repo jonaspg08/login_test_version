@@ -1,6 +1,6 @@
 <script setup>
 import { useCounterStore } from '../stores/counter';
- 
+
 const useStore = useCounterStore();
 
 </script>
@@ -15,8 +15,10 @@ const useStore = useCounterStore();
     <label>
       Password
     </label>
-    <input type="password" v-model="useStore.userFormData.password" required placeholder="Password"/>
+    <input type="password" v-model="useStore.userFormData.password" required placeholder="Password" />
     <button @click.prevent="useStore.login">Submit</button>
-    <button @click.prevent="useStore.overlayLogin = true">Create Account</button>
+    <div class="header">
+      <button @click.prevent="useStore.overlayLogin = true">Create Account</button>
+    </div>
   </form>
 </template>

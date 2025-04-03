@@ -7,7 +7,7 @@ const counterStore = useCounterStore(); // import
 const ticTacToeStore = useTTTStore(); // import
 const activePlayer = ref(false); // true oder false
 
-function clickOnBoard(row, col) { 
+function clickOnBoard(row, col) {
   if (ticTacToeStore.currentBoard[row][col] === '' && !ticTacToeStore.gameOver) {
     ticTacToeStore.currentBoard[row][col] = counterStore.user.name;
     ticTacToeStore.updateBoard();
@@ -51,7 +51,7 @@ function gameEnd() {
 
 <template>
   <div class="title">
-    <p>TickTackToe</p>
+    <h2>TickTackToe</h2>
   </div>
   <main>
     <div class="blockGamePlay"
@@ -92,9 +92,8 @@ button {
 
 .reset {
   display: flex;
-  margin-left: 43.2%;
   margin-top: 3rem;
-  width: 225px;
+  width: 200px;
   height: 40px;
   justify-content: center;
   border-radius: 5px;
@@ -135,8 +134,6 @@ main {
   text-align: center;
   font-family: Arial, Helvetica, sans-serif;
   color: #ffd400;
-  font-size: 40px;
-  font-weight: bold;
 }
 
 .overlayActive {
