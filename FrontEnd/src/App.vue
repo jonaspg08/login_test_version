@@ -1,7 +1,8 @@
 <script setup>
 import { useCounterStore } from './stores/counter';
-import Game from './components/Game.vue';
+
 import ValidUser from './components/ValidUser.vue';
+import Game from './components/Game.vue'
 
 const useStore = useCounterStore();
 </script>
