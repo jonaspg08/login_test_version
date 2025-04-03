@@ -1,6 +1,8 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 
+const apiUrl = import.meta.env.VITE_API_URL
+
 export const useTTTStore = defineStore('ttt', () => {
   const currentPlayers = ref({}) //['Jonas', 'Hans']
   const gameOver = ref(false); // true oder false
@@ -12,7 +14,7 @@ export const useTTTStore = defineStore('ttt', () => {
   ]);
 
   function loadBoard() {
-    fetch(`${process.env.PORT}/game/board`)
+    fetch(`${import.meta.env.VITE_API_URL}/game/board`)
       .then((response) => response.json())
       .then((data) => {
         currentBoard.value = data.currentBoard
@@ -20,7 +22,7 @@ export const useTTTStore = defineStore('ttt', () => {
   }
 
   function updateBoard() {
-    fetch(`${process.env.PORT}/game/board`, {
+    fetch(`${import.meta.env.VITE_API_URL}/game/board`, {
       method: "POST",
       headers: { "content-Type": "application/json" },
       body: JSON.stringify({ "currentBoard": currentBoard.value })
@@ -29,7 +31,7 @@ export const useTTTStore = defineStore('ttt', () => {
   }
 
   function getCurrentPlayer() {
-    fetch(`${process.env.PORT}/game/whosTurn`)
+    fetch(`${import.meta.env.VITE_API_URL}/game/whosTurn`)
       .then((response) => response.json())
       .then((data) => {
         currentPlayers.value = data.whosTurn
