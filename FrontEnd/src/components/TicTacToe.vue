@@ -116,10 +116,9 @@ button {
   justify-content: center;
   align-items: center;
   left: 0;
-  top: 0;
   backdrop-filter: blur(20px);
   background-color: rgba(255, 0, 0, 0.213);
-  height: 100%;
+  height: 95%;
   width: 100%;
 
 }
