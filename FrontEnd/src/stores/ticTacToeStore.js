@@ -14,7 +14,7 @@ export const useTTTStore = defineStore('ttt', () => {
   ]);
 
   function loadBoard() {
-    fetch(`${import.meta.env.VITE_API_URL}/game/board`)
+    fetch(`${apiUrl}/game/board`)
       .then((response) => response.json())
       .then((data) => {
         currentBoard.value = data.currentBoard
@@ -22,7 +22,7 @@ export const useTTTStore = defineStore('ttt', () => {
   }
 
   function updateBoard() {
-    fetch(`${import.meta.env.VITE_API_URL}/game/board`, {
+    fetch(`${apiUrl}/game/board`, {
       method: "POST",
       headers: { "content-Type": "application/json" },
       body: JSON.stringify({ "currentBoard": currentBoard.value })
@@ -31,7 +31,7 @@ export const useTTTStore = defineStore('ttt', () => {
   }
 
   function getCurrentPlayer() {
-    fetch(`${import.meta.env.VITE_API_URL}/game/whosTurn`)
+    fetch(`${apiUrl}/game/whosTurn`)
       .then((response) => response.json())
       .then((data) => {
         currentPlayers.value = data.whosTurn
