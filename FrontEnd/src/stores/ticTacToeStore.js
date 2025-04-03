@@ -12,7 +12,7 @@ export const useTTTStore = defineStore('ttt', () => {
   ]);
 
   function loadBoard() {
-    fetch("http://localhost:9002/game/board")
+    fetch(`${process.env.PORT}/game/board`)
       .then((response) => response.json())
       .then((data) => {
         currentBoard.value = data.currentBoard
@@ -20,7 +20,7 @@ export const useTTTStore = defineStore('ttt', () => {
   }
 
   function updateBoard() {
-    fetch("http://localhost:9002/game/board", {
+    fetch(`${process.env.PORT}/game/board`, {
       method: "POST",
       headers: { "content-Type": "application/json" },
       body: JSON.stringify({ "currentBoard": currentBoard.value })
@@ -29,7 +29,7 @@ export const useTTTStore = defineStore('ttt', () => {
   }
 
   function getCurrentPlayer() {
-    fetch("http://localhost:9002/game/whosTurn")
+    fetch(`${process.env.PORT}/game/whosTurn`)
       .then((response) => response.json())
       .then((data) => {
         currentPlayers.value = data.whosTurn

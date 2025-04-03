@@ -11,7 +11,7 @@ export const useCounterStore = defineStore('counter', () => {
 
 
   function login() {
-    fetch("http://localhost:9002/login", {
+    fetch(`${process.env.PORT}/login`, {
       method: "POST",
       headers: { "content-Type": "application/json" },
       body: JSON.stringify(userFormData.value)
@@ -29,7 +29,7 @@ export const useCounterStore = defineStore('counter', () => {
   }
 
   function postLocalUser(data) {
-    fetch("http://localhost:9002/game/activePlayer", {
+    fetch(`${process.env.PORT}/game/activePlayer`, {
       method: "POST",
       headers: { "content-Type": "application/json" },
       body: JSON.stringify(data)
@@ -37,7 +37,7 @@ export const useCounterStore = defineStore('counter', () => {
   }
 
   function registerUser() {
-    fetch("http://localhost:9002/userFormDataCreate", {
+    fetch(`${process.env.PORT}/userFormDataCreate`, {
       method: "POST",
       headers: { "content-Type": "application/json" },
       body: JSON.stringify(userFormDataCreate.value)

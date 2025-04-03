@@ -13,7 +13,7 @@ app.use(cors());
 
 app.use("/game", gameRouter);
 
-app.get("", async (req, res) => {
+app.get("",  (req, res) => {
     try {
         res.send('hello from backend')
     } catch (error) {
