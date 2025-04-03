@@ -56,9 +56,10 @@ function gameEnd() {
   <main>
     <div class="blockGamePlay"
       v-if="ticTacToeStore.currentPlayer !== counterStore.user.name && !ticTacToeStore.gameOver">
-      <div style="width: 100%;">
+      <div>
         Wait for the other player to make his move
       </div>
+
     </div>
     <div v-for="(row, rowIndex) in ticTacToeStore.currentBoard">
       <div v-for="(field, fieldIndex) in row">
@@ -111,6 +112,9 @@ button {
 
 .blockGamePlay {
   position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   left: 0;
   top: 0;
   backdrop-filter: blur(20px);
@@ -121,10 +125,11 @@ button {
 }
 
 .blockGamePlay>div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: red;
   font-size: xx-large;
-  width: 10%; /* Geändert 50%*/
-  height: 50%;
   margin: auto;
 }
 
