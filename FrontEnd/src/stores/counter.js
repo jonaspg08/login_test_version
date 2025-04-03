@@ -61,6 +61,14 @@ export const useCounterStore = defineStore('counter', () => {
     localStorage.clear()
   }
 
+  function clearBackendStorage() {
+    fetch(`${apiUrl}/game/clearBackendStorage`, {
+      method: "POST",
+      headers: { "content-Type": "application/json" },
+      body: JSON.stringify()
+    })
+  }
+
   checkLoginStatus();
 
   return {
@@ -72,6 +80,7 @@ export const useCounterStore = defineStore('counter', () => {
     user: user,
     overlayLogin,
     checkLoginStatus,
-    logOutUser
+    logOutUser,
+    clearBackendStorage
   }
 })
