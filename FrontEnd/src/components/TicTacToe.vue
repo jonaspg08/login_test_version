@@ -121,7 +121,7 @@ button {
 .blockGamePlay>div {
   background-color: red;
   font-size: xx-large;
-  width: 50%;
+  width: 10%; /* Geändert 50%*/
   height: 50%;
   margin: auto;
 }
