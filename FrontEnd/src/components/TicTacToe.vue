@@ -56,7 +56,7 @@ function gameEnd() {
   <main>
     <div class="blockGamePlay"
       v-if="ticTacToeStore.currentPlayer !== counterStore.user.name && !ticTacToeStore.gameOver">
-      <div>
+      <div style="width: 100%;">
         Wait for the other player to make his move
       </div>
     </div>
@@ -111,6 +111,8 @@ button {
 
 .blockGamePlay {
   position: absolute;
+  left: 0;
+  top: 0;
   backdrop-filter: blur(20px);
   background-color: rgba(255, 0, 0, 0.213);
   height: 100%;
