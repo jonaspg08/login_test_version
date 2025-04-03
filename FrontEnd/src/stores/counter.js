@@ -1,6 +1,7 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 
+const apiUrl = import.meta.env.VITE_API_URL
 
 export const useCounterStore = defineStore('counter', () => {
   const userFormData = ref({}) // {email:"", password:""}
@@ -11,7 +12,7 @@ export const useCounterStore = defineStore('counter', () => {
 
 
   function login() {
-    fetch(`${process.env.PORT}/login`, {
+    fetch(`${import.meta.env.VITE_API_URL}/login`, {
       method: "POST",
       headers: { "content-Type": "application/json" },
       body: JSON.stringify(userFormData.value)
@@ -29,7 +30,7 @@ export const useCounterStore = defineStore('counter', () => {
   }
 
   function postLocalUser(data) {
-    fetch(`${process.env.PORT}/game/activePlayer`, {
+    fetch(`${import.meta.env.VITE_API_URL}/game/activePlayer`, {
       method: "POST",
       headers: { "content-Type": "application/json" },
       body: JSON.stringify(data)
@@ -37,7 +38,7 @@ export const useCounterStore = defineStore('counter', () => {
   }
 
   function registerUser() {
-    fetch(`${process.env.PORT}/userFormDataCreate`, {
+    fetch(`${import.meta.env.VITE_API_URL}/userFormDataCreate`, {
       method: "POST",
       headers: { "content-Type": "application/json" },
       body: JSON.stringify(userFormDataCreate.value)
