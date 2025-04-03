@@ -66,7 +66,8 @@ export const useCounterStore = defineStore('counter', () => {
       method: "POST",
       headers: { "content-Type": "application/json" },
       body: JSON.stringify()
-    })
+    }) 
+    logOutUser();
   }
 
   checkLoginStatus();
