@@ -1,11 +1,11 @@
 <script setup>
-import { onUnmounted } from 'vue';
+import { ref, onUnmounted } from 'vue';
 import { useCounterStore } from '../stores/counter';
 import TicTacToe from './TicTacToe.vue';
 
 const useStore = useCounterStore();
 
-onUnmounted(() =>{
+onUnmounted(() => {
     console.log('Wird gleich entfernt');
 })
 
@@ -25,7 +25,7 @@ h2 {
     color: black;
 }
 
-header{
+header {
     display: flex;
     justify-content: space-evenly;
     width: 100%;
@@ -34,17 +34,16 @@ header{
     background-color: rgb(255, 255, 255);
 }
 
-button{
-  border-radius: 10px;
-  background-color: #87f1ff;
-  justify-content: center;
-  margin-top: 27px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  width: 200px;
-  height: 60px;
-  font-size: larger;
+button {
+    border-radius: 10px;
+    background-color: #87f1ff;
+    justify-content: center;
+    margin-top: 27px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 200px;
+    height: 60px;
+    font-size: larger;
 }
-
 </style>
