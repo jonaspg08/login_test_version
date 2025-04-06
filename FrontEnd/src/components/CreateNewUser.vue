@@ -20,7 +20,7 @@ const password2 = ref();
       </label>
       <input type="text" v-model="useStore.userFormDataCreate.surname" required placeholder="Surname" />
       <label>
-        Email:
+        E-Mail:
       </label>
       <input type="email" v-model="useStore.userFormDataCreate.email" required placeholder="E-Mail" />
       <label>
@@ -31,10 +31,12 @@ const password2 = ref();
         Password:
       </label>
       <input type="password" v-model="password2" required placeholder=" Repeat Password" />
-      <button v-if="password2 === useStore.userFormDataCreate.password" @click.prevent="useStore.registerUser"
-        @click="useStore.overlayLogin = false">Create New Account
-      </button>
-      <button @click.prevent="useStore.overlayLogin = false">Cancel</button>
+      <div class="flex">
+        <button @click.prevent="useStore.overlayLogin = false">Cancel</button>
+        <button v-if="password2 === useStore.userFormDataCreate.password" @click.prevent="useStore.registerUser"
+          @click="useStore.overlayLogin = false">Create New Account
+        </button>
+      </div>
     </form>
   </div>
 </template>

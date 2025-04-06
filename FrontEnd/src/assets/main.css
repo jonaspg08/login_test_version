@@ -32,6 +32,7 @@ button {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  cursor: pointer;
 }
 
 button:hover {
@@ -65,7 +66,7 @@ label {
   background-color: rgb(215, 215, 215);
   backdrop-filter: blur(10px);
   height: 65%;
-  width: 50%;
+  width: 60%;
   margin-top: 8rem;
   border-radius: 25px;
   top: 0px;
@@ -98,4 +99,11 @@ hr {
   left: 0;
   width: 100%;
   bottom: 30px;
+}
+
+.flex {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  gap: 13px
 }

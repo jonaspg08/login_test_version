@@ -44,6 +44,10 @@ button {
     gap: 10px;
     width: 200px;
     height: 60px;
-    font-size: larger;
+    font-size: x-large;
+}
+
+button:hover {
+    background-color: #26e2fb;
 }
 </style>

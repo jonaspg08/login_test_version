@@ -105,9 +105,9 @@ button {
 }
 
 .reset:hover {
-  background-color: #d90368;
+  background-color: #87f1ff;
   color: #000000;
-  box-shadow: 0 0 10px #d90368;
+  box-shadow: 0 0 10px #87f1ff;
 }
 
 .blockGamePlay {
@@ -117,7 +117,7 @@ button {
   align-items: center;
   left: 0;
   backdrop-filter: blur(20px);
-  background-color: rgba(255, 0, 0, 0.213);
+  background-color: rgba(255, 255, 255, 0.19);
   height: 95%;
   width: 100%;
 
@@ -127,7 +127,7 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: red;
+  background-color: rgb(255, 0, 0);
   font-size: xx-large;
   margin: auto;
 }
