@@ -16,8 +16,8 @@ const useStore = useCounterStore();
       Password
     </label>
     <input type="password" v-model="useStore.userFormData.password" required placeholder="Password" />
-    <button @click.prevent="useStore.login">Submit</button>
     <div class="header">
+      <button @click.prevent="useStore.login">Submit</button>
       <button @click.prevent="useStore.overlayLogin = true">Create Account</button>
     </div>
   </form>
