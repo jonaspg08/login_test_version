@@ -13,8 +13,8 @@ onUnmounted(() => {
 
 <template>
     <header>
-        <button @click.prevent="useStore.clearBackendStorage">Logout All Users</button>
-        <h2> Here is your Game. Have fun!</h2>
+        <button @click.prevent="useStore.clearBackendStorage">Logout Users</button>
+        <h2> Here's your Game. Have fun!</h2>
         <button @click.prevent="useStore.logOutUser">Logout</button>
     </header>
     <TicTacToe />

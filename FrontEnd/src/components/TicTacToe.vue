@@ -50,9 +50,9 @@ function gameEnd() {
 </script>
 
 <template>
-  <div class="title">
+  <!-- <div class="title">
     <h2>TickTackToe</h2>
-  </div>
+  </div> -->
   <main>
     <div class="blockGamePlay"
       v-if="ticTacToeStore.currentPlayer !== counterStore.user.name && !ticTacToeStore.gameOver">
